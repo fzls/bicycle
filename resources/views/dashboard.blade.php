@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>Dashboard</title>
     <meta charset="UTF-8">
     <meta name=description content="">
     <meta name=viewport content="width=device-width, initial-scale=1">
@@ -21,7 +21,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Bicycle Data</a>
+            <a class="navbar-brand" href="{{url('')}}">Bicycle Data</a>
+            <a class="navbar-brand" href="{{url('logs')}}">Logs</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,7 +44,7 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">Chart</h3>
+            <h3 class="panel-title">Chart for {{$name}}</h3>
         </div>
         <div class="panel-body">
             <canvas id="chart" width="auto" height="auto"></canvas>
@@ -58,33 +59,51 @@
 @include ('footer')
 <script>
     $(document).ready(function () {
-        $(station_names).each(function (index, name) {
-            $('#name').append($('<option>' + name + '</option>'))
+        $(station_names).each(function (index, station_name) {
+            var option = $('<option>' + station_name + '</option>');
+            if (name === station_name) {
+                option.attr('selected', '')
+            }
+            $('#name').append(option)
         });
         $("#start").datetimepicker();
         $("#end").datetimepicker();
         var ctx = $("#chart");
         var labels = [];
-        var datasets = [{
-            label: '# of remaining bicycles for '+name,
+        var dataset_remaining = {
+            label: '剩余车辆数',
             data: [],
-        }];
+            borderColor: 'green'
+        };
+        var dataset_rented = {
+            label: '剩余空位数',
+            data: [],
+        };
 
         $(records).each(function (index, record) {
-            datasets[0]['data'].push(record['remaining_bicycles']);
-            labels.push(moment.unix(record['time']).format('M/D HH:mm'));
+            dataset_remaining['data'].push(record['remaining_bicycles']);
+            dataset_rented['data'].push(record['rented_bicycles']);
+            labels.push(moment.unix(record['time']));
         });
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: datasets,
+                datasets: [dataset_remaining, dataset_rented],
             },
             options: {
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                'minute': 'M/D HH:mm',
+                            }
                         }
                     }],
                 }

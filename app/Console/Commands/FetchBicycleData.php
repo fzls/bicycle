@@ -43,6 +43,19 @@ class FetchBicycleData extends Command {
         while (true) {
             /*time when loop start*/
             $loop_start = Carbon::now();
+
+//            /*if it is during 22:00~6:00, sleep untill 6:00*/
+//            if ($loop_start->hour >= 22 || $loop_start->hour <= 6) {
+//                /*get the today's 6:00*/
+//                $next_morning = Carbon::now()->startOfDay()->addHours(6);
+//                /*if it is later than 22:00, add a day*/
+//                if ($loop_start->hour >= 22) {
+//                    $next_morning = $next_morning->addDay();
+//                }
+//                $time_to_sleep = $next_morning->diffInSeconds($loop_start);
+//                \Log::info('Sleep during 22:00~6:00');
+//                sleep($time_to_sleep);
+//            }
             \Log::info('Start a new loop');
 
             $client = new Client();
@@ -86,10 +99,10 @@ class FetchBicycleData extends Command {
             /*time when loop end*/
             $loop_end = Carbon::now();
             /*calculate time to sleep*/
-            $duration = $loop_end->diffInSeconds($loop_start);
-            $time_to_sleep = $T-$duration;
+            $duration      = $loop_end->diffInSeconds($loop_start);
+            $time_to_sleep = $T - $duration;
             /*sleep for some tiem to make it T per loop*/
-            \Log::info(sprintf("Sleep for %d seconds",$time_to_sleep));
+            \Log::info(sprintf("Sleep for %d seconds", $time_to_sleep));
             sleep($time_to_sleep);
         }
     }

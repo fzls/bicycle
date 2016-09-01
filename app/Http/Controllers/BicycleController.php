@@ -15,9 +15,9 @@ use JavaScript;
 class BicycleController extends Controller {
     public function showDashboard() {
         /*Get data from db, with some filter*/
-        $start = Input::get('start');
+        $start = Input::get('start')?:Carbon::now()->startOfDay();
         $end   = Input::get('end');
-        $name  = Input::get('name');
+        $name  = Input::get('name')?:'中天西城纪';
 
         $records = BicycleDatum::where('name', $name);
         if (!(is_null($start) || $start === '')) {
@@ -32,7 +32,8 @@ class BicycleController extends Controller {
         $data    = [];
         foreach ($records as $record) {
             $data[] = [
-                'remaining_bicycles' => $record->disHireNum,
+                'remaining_bicycles' => $record->enHireNum,
+                'rented_bicycles'    => $record->disHireNum,
                 'time'               => $record->created_at->timestamp,
             ];
         }
@@ -50,6 +51,7 @@ class BicycleController extends Controller {
         return view('dashboard', [
             'data'          => $data,
             'station_names' => $station_names,
+            'name'          => $name,
         ]);
     }
 }

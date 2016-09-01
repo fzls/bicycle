@@ -124,6 +124,7 @@ return [
 
     'log' => env('APP_LOG', 'single'),
 
+    //debug, info, notice, warning, error, critical, alert, emergency
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
