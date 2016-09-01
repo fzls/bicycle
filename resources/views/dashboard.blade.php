@@ -73,11 +73,17 @@
         var dataset_remaining = {
             label: '剩余车辆数',
             data: [],
-            borderColor: 'green'
+
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor:'rgba(255,99,132,0.1)',
+            borderWidth: 1,
         };
         var dataset_rented = {
             label: '剩余空位数',
             data: [],
+            backgroundColor:'rgba(75, 192, 192, 0.2)',
+            borderColor:'rgba(75, 192, 192, 0.1)',
+            borderWidth: 1,
         };
 
         $(records).each(function (index, record) {
@@ -102,7 +108,16 @@
                         type: 'time',
                         time: {
                             displayFormats: {
+                                'millisecond': 'M/D HH:mm',
+                                'second': 'M/D HH:mm',
                                 'minute': 'M/D HH:mm',
+                                'hour': 'M/D HH:mm',
+                                'day': 'M/D HH:mm',
+                                'week': 'M/D HH:mm',
+                                'month': 'M/D HH:mm',
+                                'quarter': 'M/D HH:mm',
+                                'year': 'M/D HH:mm',
+
                             }
                         }
                     }],
