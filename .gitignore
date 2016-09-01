@@ -1,7 +1,7 @@
 /node_modules
 /public/storage
 /vendor
-/.idea
+/.ideagit
 Homestead.json
 Homestead.yaml
 .env
