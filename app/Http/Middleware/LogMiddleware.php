@@ -16,7 +16,7 @@ class LogMiddleware
      */
     public function handle($request, Closure $next)
     {
-        \Log::notice(sprintf('ip : %s visited %s',$request->ip(),$request->url()));
+        \Log::notice(sprintf('ip : %s visited %s',$request->ip(),$request->fullUrl()));
 
         return $next($request);
     }
