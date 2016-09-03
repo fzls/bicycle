@@ -33,7 +33,7 @@ class FetchBicycleData extends Command {
     }
 
     /**
-     * Fetch data from api
+     * Fetch data from api..
      *
      * @return mixed
      */
