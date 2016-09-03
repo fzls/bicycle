@@ -38,47 +38,30 @@ class FetchBicycleData extends Command {
      * @return mixed
      */
     public function handle() {
-        /*run it every $T secs*/
-        $T = 30;/*seconds*/
-        while (true) {
-            /*time when loop start*/
-            $loop_start = Carbon::now();
+        \Log::info('Start a new loop');
 
-//            /*if it is during 22:00~6:00, sleep untill 6:00*/
-//            if ($loop_start->hour >= 22 || $loop_start->hour <= 6) {
-//                /*get the today's 6:00*/
-//                $next_morning = Carbon::now()->startOfDay()->addHours(6);
-//                /*if it is later than 22:00, add a day*/
-//                if ($loop_start->hour >= 22) {
-//                    $next_morning = $next_morning->addDay();
-//                }
-//                $time_to_sleep = $next_morning->diffInSeconds($loop_start);
-//                \Log::info('Sleep during 22:00~6:00');
-//                sleep($time_to_sleep);
-//            }
-            \Log::info('Start a new loop');
+        $client = new Client();
 
-            $client = new Client();
-
-            $start = Carbon::now();
-            /*Android*/
-            foreach (\Config::get('data.id_android') as $name => $id) {
-                try {
-                    $res  = $client->get("http://bike.hz.dingdatech.com/service/bicycle/stations/$id");
-                    $json = \GuzzleHttp\json_decode($res->getBody(), true);
-                    if ($json['meta']['code'] === 200) {
-                        BicycleDatum::create($json['data']['station']);
-                        \Log::info(sprintf('Insert record for station: %s', $name));
-                    } else {
-                        \Log::notice(sprintf("Error when insert record for station %s failed with code:%d, message:%s", $name, $json['meta']['code'], $json['meta']['message']));
-                    }
-                } catch (\Exception $e) {
-                    \Log::error(sprintf("Failed to fetch station $name with exception %s", $e->getMessage()));
+        $start = Carbon::now();
+        /*Android*/
+        foreach (\Config::get('data.id_android') as $name => $id) {
+            try {
+                $res  = $client->get("http://bike.hz.dingdatech.com/service/bicycle/stations/$id");
+                $json = \GuzzleHttp\json_decode($res->getBody(), true);
+                if ($json['meta']['code'] === 200) {
+                    BicycleDatum::create($json['data']['station']);
+                    \Log::info(sprintf('Insert record for station: %s', $name));
+                } else {
+                    \Log::notice(sprintf("Error when insert record for station %s failed with code:%d, message:%s", $name, $json['meta']['code'], $json['meta']['message']));
                 }
+            } catch (\Exception $e) {
+                \Log::error(sprintf("Failed to fetch station $name with exception %s", $e->getMessage()));
             }
-            \Log::info(sprintf("Get from Android api with %d seconds", Carbon::now()->diffInSeconds($start)));
-            /*Wechat*/
-            /*TODO: 这个接口目前由于微信端系统升级，暂不可用*/
+        }
+        \Log::info(sprintf("Get from Android api with %d seconds", Carbon::now()->diffInSeconds($start)));
+
+        /*Wechat*/
+        /*TODO: 这个接口目前由于微信端系统升级，暂不可用*/
 //        $start = Carbon::now();
 //        try {
 //            $res  = $client->get('http://c.ggzxc.com.cn/wz/np_getBikesByWeiXin.do?lng=120.107&lat=30.295301&len=800&_=1472267874845');
@@ -95,15 +78,5 @@ class FetchBicycleData extends Command {
 //            \Log::error(sprintf("failed to fetch station $id with exception %s"), $e->getMessage());
 //        }
 //        \Log::info(sprintf("Get from Wechat api with %s",Carbon::now()->diffForHumans($start)));
-
-            /*time when loop end*/
-            $loop_end = Carbon::now();
-            /*calculate time to sleep*/
-            $duration      = $loop_end->diffInSeconds($loop_start);
-            $time_to_sleep = $T - $duration;
-            /*sleep for some tiem to make it T per loop*/
-            \Log::info(sprintf("Sleep for %d seconds", $time_to_sleep));
-            sleep($time_to_sleep);
-        }
     }
 }
