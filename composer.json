@@ -52,7 +52,7 @@
       "php artisan config:cache",
       "php artisan route:cache",
       "php artisan optimize",
-      "yes | php artisan migrate"
+      "php artisan migrate --force"
     ],
     "post-update-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postUpdate",
