@@ -22,7 +22,6 @@ class AppServiceProvider extends ServiceProvider {
     public function register() {
         if ($this->app->environment() === 'local') {
             $this->app->register(\Iber\Generator\ModelGeneratorProvider::class);
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }
 }
