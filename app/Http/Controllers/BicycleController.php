@@ -15,7 +15,7 @@ use JavaScript;
 class BicycleController extends Controller {
     public function showDashboard() {
         /*Get data from db, with some filter*/
-        $start = Input::get('start')?:Carbon::now()->startOfDay();
+        $start = Input::get('start')?:Carbon::now()->subHours(2);
         $end   = Input::get('end');
         $name  = Input::get('name')?:'中天西城纪';
 
