@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+include 'AnimeTableSeeder.php';
 class DatabaseSeeder extends Seeder
 {
     /**
