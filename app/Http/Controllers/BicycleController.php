@@ -18,6 +18,11 @@ class BicycleController extends Controller {
         $start = Input::get('start')?:Carbon::now()->subHours(2);
         $end   = Input::get('end');
         $name  = Input::get('name')?:'中天西城纪';
+        if(Input::get('time_span')){
+            list($t, $unit) = explode(" ",Input::get('time_span'));
+            $subTime = "sub$unit";
+            $start = Carbon::now()->$subTime($t);
+        }
 
         $records = BicycleDatum::where('name', $name);
         if (!(is_null($start) || $start === '')) {

@@ -30,6 +30,18 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <form class="navbar-form navbar-left" role="search">
+                        <select name="time_span" class="form-control">
+                            <option value="">Choose time span</option>
+                            <option value="1 Hour">1 hour</option>
+                            <option value="6 Hours">6 hours</option>
+                            <option value="12 Hours">12 hours</option>
+                            <option value="1 Day">1 day</option>
+                            <option value="2 Days">2 days</option>
+                            <option value="1 Week">1 week</option>
+                            <option value="2 Weeks">2 weeks</option>
+                            <option value="1 Month">1 month</option>
+                            <option value="2 Months">2 month</option>
+                        </select>
                         <input class="form-control" type="datetime" name="start" id="start" placeholder="Start...">
                         <input class="form-control" type="datetime" name="end" id="end" placeholder="End...">
                         <div class="form-group">
@@ -75,14 +87,14 @@
             data: [],
 
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor:'rgba(255,99,132,0.1)',
+            borderColor: 'rgba(255,99,132,0.1)',
             borderWidth: 1,
         };
         var dataset_rented = {
             label: '剩余空位数',
             data: [],
-            backgroundColor:'rgba(75, 192, 192, 0.2)',
-            borderColor:'rgba(75, 192, 192, 0.1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 0.1)',
             borderWidth: 1,
         };
 
