@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BicycleDataWechat;
 use App\Models\BicycleDatum;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
