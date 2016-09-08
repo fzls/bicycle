@@ -65,7 +65,7 @@ class FetchBicycleDataAll extends Command
                     }
                     \Log::info(sprintf('Insert record for station: %s', $id));
                 } else {
-                    \Log::notice(sprintf("Error when insert record for station %s failed with code:%d, message:%s", $id, $json['meta']['code'], $json['meta']['message']));
+                    \Log::info(sprintf("Error when insert record for station %s failed with code:%d, message:%s", $id, $json['meta']['code'], $json['meta']['message']));
                 }
             } catch (\Exception $e) {
                 \Log::error(sprintf("Failed to fetch station $id with exception %s", $e->getMessage()));
