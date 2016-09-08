@@ -21,7 +21,7 @@ class FetchBicycleDataAll extends Command
      *
      * @var string
      */
-    protected $description = 'fetch 3120 bicycle stations data';
+    protected $description = 'fetch 3020 bicycle stations data';
 
     /**
      * Create a new command instance.
@@ -46,7 +46,7 @@ class FetchBicycleDataAll extends Command
         $chunk = [];
         define('CHUNK_SIZE',500);
         /*Android*/
-        for ($i=2;$i<=3120;$i++) {
+        for ($i=2;$i<=3020;$i++) {
             try {
                 $id = sprintf("%05d",$i);
                 $res  = $client->get("http://bike.hz.dingdatech.com/service/bicycle/stations/20160802161027hzl$id");
@@ -58,7 +58,7 @@ class FetchBicycleDataAll extends Command
                             'updated_at'=>Carbon::now()->toDateTimeString(),
                         ]);
                     }
-                    if(count($chunk)>=CHUNK_SIZE || $i === 3120){
+                    if(count($chunk)>=CHUNK_SIZE || $i === 3020){
                         \DB::table('bicycle_data')->insert($chunk);
                         $chunk = [];
                     }
@@ -70,6 +70,6 @@ class FetchBicycleDataAll extends Command
                 \Log::error(sprintf("Failed to fetch station $id with exception %s", $e->getMessage()));
             }
         }
-        \Log::notice(sprintf("Get 3120 stations data from Android api with %d seconds", Carbon::now()->diffInSeconds($start)));
+        \Log::notice(sprintf("Get 3020 stations data from Android api with %d seconds", Carbon::now()->diffInSeconds($start)));
     }
 }
