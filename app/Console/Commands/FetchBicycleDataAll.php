@@ -45,6 +45,7 @@ class FetchBicycleDataAll extends Command
         $start = Carbon::now();
         $chunk = [];
         define('CHUNK_SIZE',500);
+        \Log::notice("Start gathering data with chunk size ".CHUNK_SIZE);
         /*Android*/
         for ($i=2;$i<=3020;$i++) {
             try {
