@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('fetch:bicycle_data')
             ->everyMinute()->withoutOverlapping();
         $schedule->command('fetch:bicycle_data_all')
-            ->everyThirtyMinutes();
+            ->cron('0,15,30,45 * * * * *');
     }
 
     /**
