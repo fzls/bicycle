@@ -43,14 +43,26 @@ class FetchBicycleData extends Command {
         $client = new Client();
 
         $start = Carbon::now();
+        $chunk = [];
+        define('CHUNK_SIZE',50);
+        $total_cnt = count(\Config::get('data.id_android'));
         /*Android*/
         foreach (\Config::get('data.id_android') as $name => $id) {
             try {
                 $res  = $client->get("http://bike.hz.dingdatech.com/service/bicycle/stations/$id");
                 $json = \GuzzleHttp\json_decode($res->getBody(), true);
                 if ($json['meta']['code'] === 200) {
-                    BicycleDatum::create($json['data']['station']);
-                    \Log::info(sprintf('Insert record for station: %s', $name));
+                    if ($json['data']['station']){
+                        $chunk[]= array_merge($json['data']['station'],[
+                            'created_at'=>Carbon::now()->toDateTimeString(),
+                            'updated_at'=>Carbon::now()->toDateTimeString(),
+                        ]);
+                    }
+                    $total_cnt--;
+                    if(count($chunk)>=CHUNK_SIZE || 0 === $total_cnt){
+                        \DB::table('bicycle_data')->insert($chunk);
+                        $chunk = [];
+                    }
                 } else {
                     \Log::notice(sprintf("Error when insert record for station %s failed with code:%d, message:%s", $name, $json['meta']['code'], $json['meta']['message']));
                 }

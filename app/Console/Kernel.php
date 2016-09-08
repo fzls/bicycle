@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\FetchBicycleData;
+use App\Console\Commands\FetchBicycleDataAll;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         FetchBicycleData::class,
+        FetchBicycleDataAll::class,
     ];
 
     /**
@@ -27,6 +29,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('fetch:bicycle_data')
             ->everyMinute()->withoutOverlapping();
+        $schedule->command('fetch:bicycle_data_all')
+            ->everyThirtyMinutes();
     }
 
     /**
