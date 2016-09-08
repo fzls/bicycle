@@ -19,7 +19,7 @@ class LogMiddleware {
     public function handle($request, Closure $next) {
         \Log::notice(sprintf('ip : %s visited %s', $request->ip(), $request->fullUrl()));
         /*if come from outside, report bug*/
-        if (!strpos($request->fullUrl(),$request->getHost())) {
+        if (preg_match('/rands|www/',$request->fullUrl())) {
             Bugsnag::notifyError('Strange url', $request->fullUrl());
         }
         return $next($request);
