@@ -25,7 +25,7 @@ class BicycleController extends Controller {
             $start = Carbon::now()->$subTime($t);
         }
 
-        $records = BicycleDatum::where('name', $name);
+        $records = BicycleDatum::select(["enHireNum","disHireNum","created_at"])->where('name', $name);
         if (!(is_null($start) || $start === '')) {
             $records = $records->where('created_at', '>=', (new Carbon($start))->toDateTimeString());
         }
