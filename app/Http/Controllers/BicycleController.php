@@ -47,7 +47,7 @@ class BicycleController extends Controller {
         $station_names = \Cache::remember('station_names', 60*24, function (){
             return BicycleDatum::select(['name'])->distinct()->get();
         });
-
+        
 //        $station_names = array_keys(\Config::get('data.id_android'));
 
         /*make a json response for client render*/

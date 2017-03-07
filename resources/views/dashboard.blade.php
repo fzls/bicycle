@@ -9,7 +9,6 @@
     <!-- Bootstrap CSS -->
     <link href="{{asset('css/app.css')}}" rel="stylesheet" media="screen">
     <link href="{{asset('css/bootstrap-datetimepicker.css')}}" rel="stylesheet" media="screen">
-    <link href="{{asset('css/bootstrap-select.css')}}" rel="stylesheet" media="screen">
 </head>
 <body>
 <div class="container">
@@ -46,7 +45,7 @@
                         <input class="form-control" type="datetime" name="start" id="start" placeholder="Start...">
                         <input class="form-control" type="datetime" name="end" id="end" placeholder="End...">
                         <div class="form-group">
-                            <select name="name" id="name" class="form-control selectpicker" data-live-search="true"></select>
+                            <select name="name" id="name" class="form-control"></select>
                         </div>
                         <button type="submit" class="btn btn-default">Search</button>
                     </form>
@@ -69,7 +68,6 @@
 <script src="{{asset('js/moment.js')}}"></script>
 <script src="{{asset('js/moment-timezone.js')}}"></script>
 <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
-<script src="{{asset('js/bootstrap-select.js')}}"></script>
 @include ('footer')
 <script>
     $(document).ready(function () {
