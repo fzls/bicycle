@@ -72,7 +72,7 @@
 <script>
     $(document).ready(function () {
         $(station_names).each(function (index, station_name) {
-            var option = $('<option>' + station_name + '</option>');
+            var option = $('<option>' + station_name.name + '</option>');
             if (name === station_name) {
                 option.attr('selected', '')
             }
