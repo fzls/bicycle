@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('fetch:bicycle_data')
-            ->everyMinute()->withoutOverlapping();
+//        $schedule->command('fetch:bicycle_data')
+//            ->everyMinute()->withoutOverlapping();
         $schedule->command('fetch:bicycle_data_all')
             ->cron('*/15 * * * * *');
     }
