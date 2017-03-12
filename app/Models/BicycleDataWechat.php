@@ -19,6 +19,7 @@ class BicycleDataWechat extends Model
         'address',
         'areaname',
         'bikenum',
+        'createTime',
         'guardType',
         'id',
         'lat',

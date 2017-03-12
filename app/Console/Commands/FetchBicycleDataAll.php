@@ -98,7 +98,7 @@ class FetchBicycleDataAll extends Command {
                             'updated_at' => Carbon::now()->toDateTimeString(),
                         ]);
 
-//                        print("\r Current is : ".$json['data'][0]['number']);
+                        print("\r Current is : ".$json['data'][0]['number']);
 
                         if (count($chunk) >= CHUNK_SIZE) {
                             \DB::table('bicycle_data_wechat')->insert($chunk);

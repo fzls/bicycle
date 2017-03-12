@@ -18,7 +18,7 @@ class CreateBicycleDataWechatTable extends Migration
             $table->string('address');
             $table->string('areaname');
             $table->string('bikenum');
-            $table->bigInteger('createTime');
+            $table->string('createTime');
             $table->string('guardType');
             $table->integer('id');
             $table->string('lat');
