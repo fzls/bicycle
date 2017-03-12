@@ -93,12 +93,16 @@ class FetchBicycleDataAll extends Command {
                 $json = \GuzzleHttp\json_decode($res->getBody(), true);
                 if ($res->getStatusCode() === 200) {
                     if ($json['count']) {
-                        $chunk[] = array_merge($json['data'][0], [
+                        $item    = $json['data'][0];
+                        $chunk[] = [
+                            'name' => $item['name'],
+                            'rentcount' => $item['rentcount'],
+                            'restorecount' => $item['restorecount'],
                             'created_at' => Carbon::now()->toDateTimeString(),
                             'updated_at' => Carbon::now()->toDateTimeString(),
-                        ]);
+                        ];
 
-                        print("\r Current is : ".$json['data'][0]['number']);
+                        print("\r Current is : " . $json['data'][0]['number']);
 
                         if (count($chunk) >= CHUNK_SIZE) {
                             \DB::table('bicycle_data_wechat')->insert($chunk);

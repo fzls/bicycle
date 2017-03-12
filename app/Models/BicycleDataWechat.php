@@ -16,24 +16,9 @@ class BicycleDataWechat extends Model
 	public $timestamps = true;
 
     protected $fillable = [
-        'address',
-        'areaname',
-        'bikenum',
-        'createTime',
-        'guardType',
-        'id',
-        'lat',
-        'len',
-        'lon',
         'name',
-        'number',
         'rentcount',
         'restorecount',
-        'serviceType',
-        'sort',
-        'stationPhone',
-        'stationPhone2',
-        'useflag'
     ];
 
     protected $guarded = [];
