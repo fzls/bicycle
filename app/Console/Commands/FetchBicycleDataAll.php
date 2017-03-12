@@ -73,7 +73,7 @@ class FetchBicycleDataAll extends Command {
         /*Wechat*/
         $start = Carbon::now();
         $chunk = [];
-        define('CHUNK_SIZE', 1);
+        define('CHUNK_SIZE', 500);
         \Log::notice("Start gathering data with chunk size " . CHUNK_SIZE);
         $data     = file_get_contents(base_path('bicycle_stations_list_from_wechat_not_ascii.json'));
         $stations = json_decode($data, true);
