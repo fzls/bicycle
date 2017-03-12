@@ -121,6 +121,6 @@ class FetchBicycleDataAll extends Command {
             \DB::table('bicycle_data_wechat')->insert($chunk);
         }
 
-        \Log::info(sprintf("Get %d stations data from Wechat api with %s seconds", count($stations), Carbon::now()->diffForHumans($start)));
+        \Log::notice(sprintf("Get %d stations data from Wechat api with %s seconds", count($stations), Carbon::now()->diffForHumans($start)));
     }
 }
