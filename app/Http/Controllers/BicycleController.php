@@ -39,9 +39,9 @@ class BicycleController extends Controller {
         foreach ($records as $record) {
             $data[] = [
 //                车站剩余自行车数
-                'remaining_bicycles' => $record->rentcount,
+                'remaining_bicycles' => (int)$record->rentcount,
 //              车站空位数
-                'rented_bicycles'    => $record->restorecount,
+                'rented_bicycles'    => (int)$record->restorecount,
                 'time'               => $record->created_at->timestamp,
             ];
         }
@@ -49,7 +49,7 @@ class BicycleController extends Controller {
         $station_names = \Cache::remember('station_names_wechat', 60*24, function (){
             return BicycleDataWechat::select(['name'])->distinct()->get();
         });
-        
+
 //        $station_names = array_keys(\Config::get('data.id_android'));
 
         /*make a json response for client render*/
