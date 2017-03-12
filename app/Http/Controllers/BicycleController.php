@@ -25,7 +25,7 @@ class BicycleController extends Controller {
             $start = Carbon::now()->$subTime($t);
         }
 
-        $records = BicycleDatum::select(["enHireNum","disHireNum","created_at"])->where('name', $name);
+        $records = BicycleDataWechat::select(["rentcount","restorecount","created_at"])->where('name', $name);
         if (!(is_null($start) || $start === '')) {
             $records = $records->where('created_at', '>=', (new Carbon($start))->toDateTimeString());
         }
@@ -38,14 +38,16 @@ class BicycleController extends Controller {
         $data    = [];
         foreach ($records as $record) {
             $data[] = [
-                'remaining_bicycles' => $record->enHireNum,
-                'rented_bicycles'    => $record->disHireNum,
+//                车站剩余自行车数
+                'remaining_bicycles' => $record->rentcount,
+//              车站空位数
+                'rented_bicycles'    => $record->restorecount,
                 'time'               => $record->created_at->timestamp,
             ];
         }
 
-        $station_names = \Cache::remember('station_names', 60*24, function (){
-            return BicycleDatum::select(['name'])->distinct()->get();
+        $station_names = \Cache::remember('station_names_wechat', 60*24, function (){
+            return BicycleDataWechat::select(['name'])->distinct()->get();
         });
         
 //        $station_names = array_keys(\Config::get('data.id_android'));
