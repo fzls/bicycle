@@ -18,7 +18,7 @@ class BicycleController extends Controller {
         /*Get data from db, with some filter*/
         $start = Input::get('start')?:Carbon::now()->subHours(2);
         $end   = Input::get('end');
-        $name  = Input::get('name')?:'中天西城纪';
+        $name  = Input::get('name')?:'石板巷新村';
         if(Input::get('time_span')){
             list($t, $unit) = explode(" ",Input::get('time_span'));
             $subTime = "sub$unit";
